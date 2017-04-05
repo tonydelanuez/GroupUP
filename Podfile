@@ -6,6 +6,8 @@ target 'GroupUP' do
   use_frameworks!
 
   # Pods for GroupUP
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
 
   target 'GroupUPTests' do
     inherit! :search_paths

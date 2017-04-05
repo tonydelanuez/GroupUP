@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		15AF343F3D80FD2657D979A2 /* Pods_GroupUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5292248C5A486E0D2652C429 /* Pods_GroupUP.framework */; };
 		68CB4F666E915E89D8DCBBEA /* Pods_GroupUPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD44C77386E3F2260DAD204 /* Pods_GroupUPTests.framework */; };
+		C0B42C3B1E957C46008B243B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B42C3A1E957C46008B243B /* RegistrationViewController.swift */; };
+		C0B42C3D1E957C5D008B243B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B42C3C1E957C5D008B243B /* LoginViewController.swift */; };
+		C0B42C3F1E957C6F008B243B /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */; };
 		C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB41E95641700E44F56 /* AppDelegate.swift */; };
 		C0E07DB71E95641700E44F56 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB61E95641700E44F56 /* FirstViewController.swift */; };
 		C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB81E95641700E44F56 /* SecondViewController.swift */; };
@@ -47,6 +50,9 @@
 		9E1F512CF5B0413BB068EFBE /* Pods-GroupUPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupUPUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GroupUPUITests/Pods-GroupUPUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9E62C32941D23C00242D0E4D /* Pods-GroupUPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupUPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GroupUPTests/Pods-GroupUPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B9BD4CB7186C63683B930CFB /* Pods-GroupUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-GroupUP/Pods-GroupUP.release.xcconfig"; sourceTree = "<group>"; };
+		C0B42C3A1E957C46008B243B /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		C0B42C3C1E957C5D008B243B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		C0E07DB11E95641700E44F56 /* GroupUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E07DB41E95641700E44F56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E07DB61E95641700E44F56 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +150,9 @@
 				C0E07DB41E95641700E44F56 /* AppDelegate.swift */,
 				C0E07DB61E95641700E44F56 /* FirstViewController.swift */,
 				C0E07DB81E95641700E44F56 /* SecondViewController.swift */,
+				C0B42C3C1E957C5D008B243B /* LoginViewController.swift */,
+				C0B42C3A1E957C46008B243B /* RegistrationViewController.swift */,
+				C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */,
 				C0E07DBA1E95641700E44F56 /* Main.storyboard */,
 				C0E07DBD1E95641700E44F56 /* Assets.xcassets */,
 				C0E07DBF1E95641700E44F56 /* LaunchScreen.storyboard */,
@@ -456,6 +465,9 @@
 			files = (
 				C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */,
 				C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */,
+				C0B42C3B1E957C46008B243B /* RegistrationViewController.swift in Sources */,
+				C0B42C3F1E957C6F008B243B /* PasswordResetViewController.swift in Sources */,
+				C0B42C3D1E957C5D008B243B /* LoginViewController.swift in Sources */,
 				C0E07DB71E95641700E44F56 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -709,6 +721,7 @@
 				C0E07DDD1E95641700E44F56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C0E07DDE1E95641700E44F56 /* Build configuration list for PBXNativeTarget "GroupUPTests" */ = {
 			isa = XCConfigurationList;
@@ -717,6 +730,7 @@
 				C0E07DE01E95641700E44F56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C0E07DE11E95641700E44F56 /* Build configuration list for PBXNativeTarget "GroupUPUITests" */ = {
 			isa = XCConfigurationList;
@@ -725,6 +739,7 @@
 				C0E07DE31E95641700E44F56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
