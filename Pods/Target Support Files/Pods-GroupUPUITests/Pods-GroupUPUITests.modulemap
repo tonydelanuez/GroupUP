@@ -1,0 +1,6 @@
+framework module Pods_GroupUPUITests {
+  umbrella header "Pods-GroupUPUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
