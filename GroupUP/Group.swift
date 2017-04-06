@@ -9,7 +9,7 @@
 import Foundation
 
 // Inspiration from https://www.raywenderlich.com/140836/firebase-tutorial-real-time-chat-2
-class Channel {
+class Group {
     
     var id: String
     var name: String
