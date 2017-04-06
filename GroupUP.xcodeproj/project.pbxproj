@@ -21,6 +21,7 @@
 		C0E07DCC1E95641700E44F56 /* GroupUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DCB1E95641700E44F56 /* GroupUPTests.swift */; };
 		C0E07DD71E95641700E44F56 /* GroupUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DD61E95641700E44F56 /* GroupUPUITests.swift */; };
 		C0E07DE51E95729900E44F56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */; };
+		D896E2A51E95B918004FDEF0 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D896E2A41E95B918004FDEF0 /* Channel.swift */; };
 		D8DE821A85692501DFAA2E4F /* Pods_GroupUPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		C0E07DD61E95641700E44F56 /* GroupUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUPUITests.swift; sourceTree = "<group>"; };
 		C0E07DD81E95641700E44F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D896E2A41E95B918004FDEF0 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupUPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				C0E07DB41E95641700E44F56 /* AppDelegate.swift */,
 				C0E07DB61E95641700E44F56 /* FirstViewController.swift */,
 				C0E07DB81E95641700E44F56 /* SecondViewController.swift */,
+				D896E2A41E95B918004FDEF0 /* Channel.swift */,
 				C0B42C3C1E957C5D008B243B /* LoginViewController.swift */,
 				C0B42C3A1E957C46008B243B /* RegistrationViewController.swift */,
 				C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */,
@@ -463,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D896E2A51E95B918004FDEF0 /* Channel.swift in Sources */,
 				C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */,
 				C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */,
 				C0B42C3B1E957C46008B243B /* RegistrationViewController.swift in Sources */,

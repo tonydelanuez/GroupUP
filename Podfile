@@ -6,8 +6,10 @@ target 'GroupUP' do
   use_frameworks!
 
   # Pods for GroupUP
-  pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'JSQMessagesViewController'
 
   target 'GroupUPTests' do
     inherit! :search_paths
