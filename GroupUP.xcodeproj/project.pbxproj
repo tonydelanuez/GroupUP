@@ -14,7 +14,7 @@
 		C0B42C3F1E957C6F008B243B /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */; };
 		C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB41E95641700E44F56 /* AppDelegate.swift */; };
 		C0E07DB71E95641700E44F56 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB61E95641700E44F56 /* FirstViewController.swift */; };
-		C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB81E95641700E44F56 /* SecondViewController.swift */; };
+		C0E07DB91E95641700E44F56 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E07DB81E95641700E44F56 /* GroupsViewController.swift */; };
 		C0E07DBC1E95641700E44F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DBA1E95641700E44F56 /* Main.storyboard */; };
 		C0E07DBE1E95641700E44F56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DBD1E95641700E44F56 /* Assets.xcassets */; };
 		C0E07DC11E95641700E44F56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DBF1E95641700E44F56 /* LaunchScreen.storyboard */; };
@@ -23,6 +23,7 @@
 		C0E07DE51E95729900E44F56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */; };
 		D896E2A51E95B918004FDEF0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D896E2A41E95B918004FDEF0 /* Group.swift */; };
 		D8DE821A85692501DFAA2E4F /* Pods_GroupUPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */; };
+		D8FC29BC1E970B1300241BE5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FC29BB1E970B1300241BE5 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		C0E07DB11E95641700E44F56 /* GroupUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E07DB41E95641700E44F56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E07DB61E95641700E44F56 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		C0E07DB81E95641700E44F56 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		C0E07DB81E95641700E44F56 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		C0E07DBB1E95641700E44F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0E07DBD1E95641700E44F56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0E07DC01E95641700E44F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		C0E07DD81E95641700E44F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D896E2A41E95B918004FDEF0 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		D8FC29BB1E970B1300241BE5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupUPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -151,8 +153,9 @@
 			children = (
 				C0E07DB41E95641700E44F56 /* AppDelegate.swift */,
 				C0E07DB61E95641700E44F56 /* FirstViewController.swift */,
-				C0E07DB81E95641700E44F56 /* SecondViewController.swift */,
+				C0E07DB81E95641700E44F56 /* GroupsViewController.swift */,
 				D896E2A41E95B918004FDEF0 /* Group.swift */,
+				D8FC29BB1E970B1300241BE5 /* ChatViewController.swift */,
 				C0B42C3C1E957C5D008B243B /* LoginViewController.swift */,
 				C0B42C3A1E957C46008B243B /* RegistrationViewController.swift */,
 				C0B42C3E1E957C6F008B243B /* PasswordResetViewController.swift */,
@@ -467,7 +470,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D896E2A51E95B918004FDEF0 /* Group.swift in Sources */,
-				C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */,
+				C0E07DB91E95641700E44F56 /* GroupsViewController.swift in Sources */,
+				D8FC29BC1E970B1300241BE5 /* ChatViewController.swift in Sources */,
 				C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */,
 				C0B42C3B1E957C46008B243B /* RegistrationViewController.swift in Sources */,
 				C0B42C3F1E957C6F008B243B /* PasswordResetViewController.swift in Sources */,
