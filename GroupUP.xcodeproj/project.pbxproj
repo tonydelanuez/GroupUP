@@ -23,6 +23,10 @@
 		C0E07DE51E95729900E44F56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */; };
 		D896E2A51E95B918004FDEF0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D896E2A41E95B918004FDEF0 /* Group.swift */; };
 		D8DE821A85692501DFAA2E4F /* Pods_GroupUPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */; };
+		FB51036A1E97089300F0D61B /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5103691E97089300F0D61B /* MapMarker.swift */; };
+		FB51036C1E970A6700F0D61B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51036B1E970A6700F0D61B /* MapViewController.swift */; };
+		FB51036E1E970BCC00F0D61B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB51036D1E970BCC00F0D61B /* MapKit.framework */; };
+		FB5103701E970E3000F0D61B /* DummyMapData.json in Resources */ = {isa = PBXBuildFile; fileRef = FB51036F1E970C3B00F0D61B /* DummyMapData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,10 @@
 		C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D896E2A41E95B918004FDEF0 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupUPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB5103691E97089300F0D61B /* MapMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
+		FB51036B1E970A6700F0D61B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FB51036D1E970BCC00F0D61B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FB51036F1E970C3B00F0D61B /* DummyMapData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyMapData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB51036E1E970BCC00F0D61B /* MapKit.framework in Frameworks */,
 				15AF343F3D80FD2657D979A2 /* Pods_GroupUP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +113,7 @@
 		61BC8903D9FD8975DE82871E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB51036D1E970BCC00F0D61B /* MapKit.framework */,
 				5292248C5A486E0D2652C429 /* Pods_GroupUP.framework */,
 				3BD44C77386E3F2260DAD204 /* Pods_GroupUPTests.framework */,
 				DDDCD94F8669EC17D6F3E62B /* Pods_GroupUPUITests.framework */,
@@ -161,6 +171,9 @@
 				C0E07DBF1E95641700E44F56 /* LaunchScreen.storyboard */,
 				C0E07DC21E95641700E44F56 /* Info.plist */,
 				C0E07DE41E95729900E44F56 /* GoogleService-Info.plist */,
+				FB5103691E97089300F0D61B /* MapMarker.swift */,
+				FB51036B1E970A6700F0D61B /* MapViewController.swift */,
+				FB51036F1E970C3B00F0D61B /* DummyMapData.json */,
 			);
 			path = GroupUP;
 			sourceTree = "<group>";
@@ -262,6 +275,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 4J6R5975TF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					C0E07DC61E95641700E44F56 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -300,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5103701E970E3000F0D61B /* DummyMapData.json in Resources */,
 				C0E07DC11E95641700E44F56 /* LaunchScreen.storyboard in Resources */,
 				C0E07DE51E95729900E44F56 /* GoogleService-Info.plist in Resources */,
 				C0E07DBE1E95641700E44F56 /* Assets.xcassets in Resources */,
@@ -468,7 +487,9 @@
 			files = (
 				D896E2A51E95B918004FDEF0 /* Group.swift in Sources */,
 				C0E07DB91E95641700E44F56 /* SecondViewController.swift in Sources */,
+				FB51036A1E97089300F0D61B /* MapMarker.swift in Sources */,
 				C0E07DB51E95641700E44F56 /* AppDelegate.swift in Sources */,
+				FB51036C1E970A6700F0D61B /* MapViewController.swift in Sources */,
 				C0B42C3B1E957C46008B243B /* RegistrationViewController.swift in Sources */,
 				C0B42C3F1E957C6F008B243B /* PasswordResetViewController.swift in Sources */,
 				C0B42C3D1E957C5D008B243B /* LoginViewController.swift in Sources */,
