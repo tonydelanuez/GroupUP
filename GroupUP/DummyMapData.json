@@ -1,0 +1,29 @@
+{
+    "markers" : [
+                 {
+                 "title": "1 title",
+                 "subtitle": "1 subtitle",
+                 "latitude": 38.649,
+                 "longitude": -90.303
+                 },
+                 {
+                 "title": "2 title",
+                 "subtitle": "2 subtitle",
+                 "latitude": 38.64811,
+                 "longitude": -90.3120
+                 },
+                 {
+                 "title": "3 title",
+                 "subtitle": "3 subtitle",
+                 "latitude": 38.648902,
+                 "longitude": -90.311905
+                 },
+                 {
+                 "title": "4 title",
+                 "subtitle": "4 subtitle",
+                 "latitude": 38.648868,
+                 "longitude": -90.309030
+                 }
+                 ]
+}
+
