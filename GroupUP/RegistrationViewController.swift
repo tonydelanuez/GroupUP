@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseCore
 import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
@@ -47,7 +48,7 @@ class RegistrationViewController: UIViewController {
                 self.present(alertController, animated:true, completion: nil)
                 
                 //Take user to map if they've logged in.
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "FirstViewController")
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
                 self.present(vc!, animated: true, completion: nil )
             } else {
                 //Registration failed. Alert. 

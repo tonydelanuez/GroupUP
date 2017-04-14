@@ -7,6 +7,7 @@ target 'GroupUP' do
 
   # Pods for GroupUP
   pod 'Firebase/Auth'
+  pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'JSQMessagesViewController'
