@@ -8,37 +8,34 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class GroupsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var groups: [Group] = []
-    
     @IBOutlet weak var tableView: UITableView!
     
-    //private var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "groups")
+    var user: FIRUser!
+    private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
     
- 
+    
     // Attach a listener to update the view
-//    private func detectChannels() {
-//        // Listen for the children of "groups" to change
-//        groupEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
-//            // Get the ID of the group
-//            let id = snapshot.key
-//            
-//            // Conveniently store data
-//            guard let data = snapshot.value as? Dictionary<String, AnyObject> else {
-//                return
-//            }
-//            
-//            // Append new group and reload tableView
-//            if let name = data["name"] as? String {
-//                let group = Group(id: id, name: name)
-//                self.groups.append(group)
-//                self.tableView.reloadData()
-//            }
-//            
-//        })
-//    }
+    private func detectChannels() {
+        // Listen for the children of "groups" to change
+        groupEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
+            // Get the ID of the group
+            let id = snapshot.key
+            
+            // Conveniently store data
+            guard let name = snapshot.value as? String else {
+                return
+            }
+            
+            let group = Group(id: id, name: name)
+            self.groups.append(group)
+            self.tableView.reloadData()
+        })
+    }
     
     // TableView overrides
     
@@ -63,7 +60,6 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         guard let group = sender as? Group else {
             return
         }
-
         
         if let vc = segue.destination as? ChatViewController {
             vc.group = group
@@ -76,11 +72,15 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let test = Group(id: "12345", name: "Differential Equations")
+        FIRAuth.auth()?.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+            self.user = user
+            
+        }
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.groups.append(test)
-        self.tableView.reloadData()
+        self.detectChannels()
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
