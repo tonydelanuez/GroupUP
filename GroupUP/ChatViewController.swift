@@ -49,11 +49,7 @@ class ChatViewController : JSQMessagesViewController {
         
         let message = messages[indexPath.item]
         
-        if message.senderId == senderId { // 1
-            cell.textView?.textColor = UIColor.white // 2
-        } else {
-            cell.textView?.textColor = UIColor.black // 3
-        }
+        cell.textView.textColor = self.senderId == message.senderId ? UIColor.white : UIColor.black
         
         return cell
     }
