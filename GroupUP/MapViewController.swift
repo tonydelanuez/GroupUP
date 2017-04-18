@@ -9,7 +9,12 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
+
+    var zoomLatMeters: CLLocationDistance = 2000
+    var zoomLongMeters: CLLocationDistance = 2000
+    var iLat: CLLocationDegrees = 0
+    var iLong: CLLocationDegrees = 0
 
     @IBOutlet weak var map: MKMapView!
     
@@ -22,8 +27,11 @@ class MapViewController: UIViewController {
                 let lat = item["latitude"] as? CLLocationDegrees,
                 let long = item["longitude"] as? CLLocationDegrees else {break}
             
-            let location = CLLocationCoordinate2DMake(lat, long)
-            map.setRegion(MKCoordinateRegionMakeWithDistance(location, 1500, 1500), animated: true)
+            iLat = lat
+            iLong = long
+            
+            let location = CLLocationCoordinate2DMake(iLat, iLong)
+            map.setRegion(MKCoordinateRegionMakeWithDistance(location, zoomLatMeters, zoomLongMeters), animated: true)
             
             let pin = MapMarker(title: title, subtitle: subtitle, coordinate: location)
             map.addAnnotation(pin)
@@ -50,12 +58,42 @@ class MapViewController: UIViewController {
         }
     }
     
+    @IBAction func userLocation(_ sender: Any) {
+        let userLocation = map.userLocation
+        let region = MKCoordinateRegionMakeWithDistance((userLocation.location?.coordinate)!, zoomLatMeters, zoomLongMeters)
+        
+        iLat = userLocation.coordinate.latitude
+        iLong = userLocation.coordinate.longitude
+        map.setRegion(region, animated: true)
+    }
+    
+    func zoom() {
+        let location = CLLocationCoordinate2DMake(iLat, iLong)
+        map.setRegion(MKCoordinateRegionMakeWithDistance(location,zoomLatMeters, zoomLongMeters), animated: true)
+    }
+    
+    @IBAction func zoomOut(_ sender: Any) {
+        zoomLatMeters += 1000
+        zoomLongMeters += 1000
+        zoom()
+    }
+    
+    @IBAction func zoomIn(_ sender: Any) {
+        zoomLatMeters -= 1000
+        zoomLongMeters -= 1000
+        zoom()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        map.showsUserLocation = true
+        map.delegate = self
         parseJSON()
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
