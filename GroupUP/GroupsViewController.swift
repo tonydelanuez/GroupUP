@@ -20,7 +20,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     // Attach a listener to update the view
-    private func detectChannels() {
+    private func detectGroups() {
         // Listen for the children of "groups" to change
         groupEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
             // Get the ID of the group
@@ -78,7 +78,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         }
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.detectChannels()
+        self.detectGroups()
         
         
     }
