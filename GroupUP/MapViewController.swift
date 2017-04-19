@@ -40,6 +40,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
+    //hold press for drop pin
+    func action(gestureRecognizer:UIGestureRecognizer){
+        let touchPoint = gestureRecognizer.location(in: map)
+        let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
+        let pin = MKPointAnnotation()
+        pin.coordinate = newCoordinates
+        
+        print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
+        map.addAnnotation(pin)
+    }
+    
+    
+    
     /*
      parse the data into an object we can use
      NSJSONSerialization does the parsing and serializing
@@ -93,7 +106,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         parseJSON()
         
         
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.5
+        map.addGestureRecognizer(lpgr)
         
+
     }
 
     override func didReceiveMemoryWarning() {
