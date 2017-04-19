@@ -53,12 +53,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //hold press for drop pin
     func action(gestureRecognizer:UIGestureRecognizer){
         let touchPoint = gestureRecognizer.location(in: map)
-        let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
-        let pin = MKPointAnnotation()
-        pin.coordinate = newCoordinates
+        if(gestureRecognizer.state == UIGestureRecognizerState.ended){
+            let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
+            let pin = MKPointAnnotation()
+            pin.coordinate = newCoordinates
+            
+            print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
+            map.addAnnotation(pin)
+        }
         
-        print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
-        map.addAnnotation(pin)
     }
     
     
