@@ -8,6 +8,9 @@
 
 import UIKit
 import MapKit
+import Firebase
+import FirebaseDatabase
+
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -17,6 +20,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var iLong: CLLocationDegrees = 0
 
     @IBOutlet weak var map: MKMapView!
+    
+    func readFromFirebase(){
+        let ref = FIRDatabase.database().reference(withPath: "pins")
+        ref.observe(.value, with: { snapshot in
+            print(snapshot.value!)
+        })
+    }
     
     func readJSONObject(object: [String: AnyObject]) {
         guard let markers = object["markers"] as? [[String: AnyObject]] else { return }
@@ -99,7 +109,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        readFromFirebase()
         // Do any additional setup after loading the view.
         map.showsUserLocation = true
         map.delegate = self
