@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import Firebase
 import FirebaseDatabase
-
+import GameplayKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -20,6 +20,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var iLong: CLLocationDegrees = 0
     var pinName: String!
     var pinDescription: String!
+    var random: Int!
 
     @IBOutlet weak var map: MKMapView!
     
@@ -66,15 +67,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
             map.addAnnotation(pin)
             
+            //random id
+            let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
+            let r = random.nextInt()
+            
             //Add to firebase
-//            let ref = FIRDatabase.database().reference(withPath: "pins")
-//            ref.setValue([
-//                "description": "Create a group",
-//                "id": 9,
-//                "lat": newCoordinates.latitude,
-//                "long": newCoordinates.longitude,
-//                "name": "New Pin"
-//                ])
+            let ref = FIRDatabase.database().reference(withPath: "pins")
+            ref.child(String(r)).setValue([
+                "description": "Create a group",
+                "id": 9,
+                "lat": newCoordinates.latitude,
+                "long": newCoordinates.longitude,
+                "name": "New Pin"
+                ])
         }
         
     }
@@ -153,6 +158,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         readFromFirebase()
+        
+        let location = CLLocationCoordinate2DMake(38.902, -90.902)
+        map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
         // Do any additional setup after loading the view.
         map.showsUserLocation = true
         map.delegate = self
