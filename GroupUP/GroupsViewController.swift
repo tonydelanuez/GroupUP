@@ -17,22 +17,34 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     
     var user: FIRUser!
     private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
+    private lazy var membersEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
     
     
     // Attach a listener to update the view
     private func detectGroups() {
+        
+        var groupDictionary : Dictionary<String, String> = [:]
+        self.groupEndpoint.observe(FIRDataEventType.value,  with: { snap in
+            groupDictionary = snap.value as! Dictionary<String, String>
+        })
+        
         // Listen for the children of "groups" to change
-        groupEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
+        membersEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
             // Get the ID of the group
             let id = snapshot.key
             
-            // Conveniently store data
-            guard let name = snapshot.value as? String else {
-                return
+            let memberDictionary = snapshot.value as! Dictionary<String, Bool>
+            for (name, _) in memberDictionary {
+                
+                if name == self.user.uid {
+                    if let groupName = groupDictionary[id] {
+                        let group = Group(id: id, name: groupName)
+                        self.groups.append(group)
+                    }
+                }
+                
+                
             }
-            
-            let group = Group(id: id, name: name)
-            self.groups.append(group)
             self.tableView.reloadData()
         })
     }
@@ -69,16 +81,19 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        FIRAuth.auth()?.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-            self.user = user
-            
+        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            else {
+                self.user = user
+                self.detectGroups()
+            }
         }
+        super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.detectGroups()
+        
         
         
     }
