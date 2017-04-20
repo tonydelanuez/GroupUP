@@ -62,7 +62,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gEz-6C-ZV0">
-                                <rect key="frame" x="84" y="190" width="206" height="90"/>
+                                <rect key="frame" x="84" y="160" width="206" height="120"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter group name here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cpF-rQ-oZn">
                                         <rect key="frame" x="0.0" y="0.0" width="206" height="30"/>
@@ -80,12 +80,22 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lt6-1L-DYr">
                                         <rect key="frame" x="0.0" y="60" width="206" height="30"/>
-                                        <color key="backgroundColor" red="0.90980392160000001" green="0.25882352939999997" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.76113013698630139" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Create Group!">
                                             <color key="titleColor" red="0.0" green="0.2470588235" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="createGroup:" destination="9pv-A4-QxB" eventType="touchUpInside" id="yBd-53-mn3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4EX-fS-RuE">
+                                        <rect key="frame" x="0.0" y="90" width="206" height="30"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.25882352939999997" blue="0.058823529409999999" alpha="0.74842144691780821" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.2470588235" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelGroup:" destination="9pv-A4-QxB" eventType="touchUpInside" id="u42-C3-F8b"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -107,6 +117,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="cancelButton" destination="4EX-fS-RuE" id="Sb4-5g-mqJ"/>
                         <outlet property="groupButton" destination="Lt6-1L-DYr" id="aHV-AR-erP"/>
                         <outlet property="groupDescription" destination="a0U-mW-ksY" id="0ZF-bE-KZi"/>
                         <outlet property="groupName" destination="cpF-rQ-oZn" id="eID-vG-uQQ"/>
@@ -138,7 +149,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ayE-CD-H5K" id="2Iw-Z4-1oL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -197,7 +208,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K9j-v6-jmV" id="TsF-b1-JUi">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

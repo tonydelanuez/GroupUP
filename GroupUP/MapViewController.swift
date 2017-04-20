@@ -15,7 +15,16 @@ import GameplayKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var groupButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    
     var touchPoint: CGPoint?
+    
+    @IBAction func cancelGroup(_ sender: UIButton) {
+        hideAll()
+        clearBoxes()
+    }
+    
     
     @IBAction func createGroup(_ sender: UIButton) {
        
@@ -44,9 +53,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             "name": theGroupName!
             ])
         
-        groupName.isHidden = true
-        groupDescription.isHidden = true
-        groupButton.isHidden = true
+        hideAll()
+        clearBoxes()
     }
     
     @IBOutlet weak var groupName: UITextField!
@@ -61,6 +69,28 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var random: Int!
 
     @IBOutlet weak var map: MKMapView!
+    
+    //Hide the text boxes, buttons
+    func hideAll(){
+        groupName.isHidden = true
+        groupDescription.isHidden = true
+        groupButton.isHidden = true
+        cancelButton.isHidden = true
+    }
+    
+    //Show all the text boxes and buttons
+    func showAll(){
+        groupName.isHidden = false
+        groupDescription.isHidden = false
+        groupButton.isHidden = false
+        cancelButton.isHidden = false
+    }
+    
+    //Clear the text boxes
+    func clearBoxes(){
+        groupName.text = ""
+        groupDescription.text = ""
+    }
     
     func readFromFirebase(){
         let ref = FIRDatabase.database().reference(withPath: "pins")
@@ -97,9 +127,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func action(gestureRecognizer:UIGestureRecognizer){
         touchPoint = gestureRecognizer.location(in: map)
         if(gestureRecognizer.state == UIGestureRecognizerState.ended){
-           groupName.isHidden = false
-            groupDescription.isHidden = false
-            groupButton.isHidden = false
+           showAll()
         }
         
     }
@@ -196,10 +224,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
         lpgr.minimumPressDuration = 0.5
         map.addGestureRecognizer(lpgr)
-        groupName.isHidden = true
-        groupDescription.isHidden = true
-        groupButton.isHidden = true
-
+        hideAll()
+        groupButton.layer.cornerRadius = 10
+        cancelButton.layer.cornerRadius = 10
     }
 
     override func didReceiveMemoryWarning() {
