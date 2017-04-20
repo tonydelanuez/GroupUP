@@ -18,23 +18,71 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var zoomLongMeters: CLLocationDistance = 2000
     var iLat: CLLocationDegrees = 0
     var iLong: CLLocationDegrees = 0
+    var pinName: String!
+    var pinDescription: String!
 
     @IBOutlet weak var map: MKMapView!
     
     func readFromFirebase(){
         let ref = FIRDatabase.database().reference(withPath: "pins")
-        ref.observe(.value, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
             print (snapshot.value!)
             
-//            if let allPins = snapshot.value as? [String:AnyObject] {
-//                for pin in allPins {
-//                    print (pin)
-//                }
-//            }
+            if let pin = snapshot.value as? [String:Any] {
+                
+                if pin["long"] != nil  {
+                    print("Pin name: ", pin["name"]!)
+                    self.pinName = pin["name"]! as! String
+                    
+                    print(pin["description"]!)
+                    self.pinDescription = pin["description"]! as! String
+                    
+                    print(pin["lat"]!)
+                    self.iLat = pin["lat"]! as! CLLocationDegrees
+                    
+                    print(pin["long"]!)
+                    self.iLong = pin["long"]! as! CLLocationDegrees
+                    
+                    let location = CLLocationCoordinate2DMake(self.iLat, self.iLong)
+                    self.map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
+                    
+                    let pin = MapMarker(title: self.pinName, subtitle: self.pinDescription, coordinate: location)
+                    self.map.addAnnotation(pin)
+                    print(pin.coordinate)
+                }
+            }
         })
     }
 
+    //hold press for drop pin
+    func action(gestureRecognizer:UIGestureRecognizer){
+        let touchPoint = gestureRecognizer.location(in: map)
+        if(gestureRecognizer.state == UIGestureRecognizerState.ended){
+            let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
+            //let pin = MKPointAnnotation()
+            //pin.coordinate = newCoordinates
+            let pin = MapMarker(title: "New Pin", subtitle: "Create a group!", coordinate: newCoordinates)
+            
+            print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
+            map.addAnnotation(pin)
+            
+            //Add to firebase
+//            let ref = FIRDatabase.database().reference(withPath: "pins")
+//            ref.setValue([
+//                "description": "Create a group",
+//                "id": 9,
+//                "lat": newCoordinates.latitude,
+//                "long": newCoordinates.longitude,
+//                "name": "New Pin"
+//                ])
+        }
+        
+    }
     
+    /*
+     /* 
+        Dont need at the moment
+     */
     func readJSONObject(object: [String: AnyObject]) {
         guard let markers = object["markers"] as? [[String: AnyObject]] else { return }
         
@@ -57,23 +105,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    //hold press for drop pin
-    func action(gestureRecognizer:UIGestureRecognizer){
-        let touchPoint = gestureRecognizer.location(in: map)
-        if(gestureRecognizer.state == UIGestureRecognizerState.ended){
-            let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
-            //let pin = MKPointAnnotation()
-            //pin.coordinate = newCoordinates
-            let pin = MapMarker(title: "New Pin", subtitle: "Create a group!", coordinate: newCoordinates)
-
-            print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
-            map.addAnnotation(pin)
-        }
-        
-    }
-    
-    
-    
     /*
      parse the data into an object we can use
      NSJSONSerialization does the parsing and serializing
@@ -91,6 +122,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             // Handle Error
         }
     }
+    */
     
     @IBAction func userLocation(_ sender: Any) {
         let userLocation = map.userLocation
@@ -124,7 +156,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
         map.showsUserLocation = true
         map.delegate = self
-        parseJSON()
+        //parseJSON()
         
         
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
