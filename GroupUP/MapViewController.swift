@@ -24,9 +24,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func readFromFirebase(){
         let ref = FIRDatabase.database().reference(withPath: "pins")
         ref.observe(.value, with: { snapshot in
-            print(snapshot.value!)
+            print (snapshot.value!)
+            
+//            if let allPins = snapshot.value as? [String:AnyObject] {
+//                for pin in allPins {
+//                    print (pin)
+//                }
+//            }
         })
     }
+
     
     func readJSONObject(object: [String: AnyObject]) {
         guard let markers = object["markers"] as? [[String: AnyObject]] else { return }
@@ -55,9 +62,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let touchPoint = gestureRecognizer.location(in: map)
         if(gestureRecognizer.state == UIGestureRecognizerState.ended){
             let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
-            let pin = MKPointAnnotation()
-            pin.coordinate = newCoordinates
-            
+            //let pin = MKPointAnnotation()
+            //pin.coordinate = newCoordinates
+            let pin = MapMarker(title: "New Pin", subtitle: "Create a group!", coordinate: newCoordinates)
+
             print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
             map.addAnnotation(pin)
         }
@@ -99,14 +107,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func zoomOut(_ sender: Any) {
-        zoomLatMeters += 1000
-        zoomLongMeters += 1000
+        zoomLatMeters += 2000
+        zoomLongMeters += 2000
         zoom()
     }
     
     @IBAction func zoomIn(_ sender: Any) {
-        zoomLatMeters -= 1000
-        zoomLongMeters -= 1000
+        zoomLatMeters -= 2000
+        zoomLongMeters -= 2000
         zoom()
     }
     
