@@ -14,6 +14,44 @@ import GameplayKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
+    @IBOutlet weak var groupButton: UIButton!
+    var touchPoint: CGPoint?
+    
+    @IBAction func createGroup(_ sender: UIButton) {
+       
+        let newCoordinates = map.convert(touchPoint!, toCoordinateFrom: map)
+        //let pin = MKPointAnnotation()
+        //pin.coordinate = newCoordinates
+        let theGroupName = groupName.text
+        let theGroupDesc = groupDescription.text
+        
+        let pin = MapMarker(title: theGroupName!, subtitle: theGroupDesc!, coordinate: newCoordinates)
+        
+        print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
+        map.addAnnotation(pin)
+        
+        //random id
+        let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
+        let r = random.nextInt()
+        
+        //Add to firebase
+        let ref = FIRDatabase.database().reference(withPath: "pins")
+        ref.child(String(r)).setValue([
+            "description": theGroupDesc!,
+            "id": 9,
+            "lat": newCoordinates.latitude,
+            "long": newCoordinates.longitude,
+            "name": theGroupName!
+            ])
+        
+        groupName.isHidden = true
+        groupDescription.isHidden = true
+        groupButton.isHidden = true
+    }
+    
+    @IBOutlet weak var groupName: UITextField!
+    @IBOutlet weak var groupDescription: UITextField!
+    
     var zoomLatMeters: CLLocationDistance = 2000
     var zoomLongMeters: CLLocationDistance = 2000
     var iLat: CLLocationDegrees = 0
@@ -57,29 +95,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     //hold press for drop pin
     func action(gestureRecognizer:UIGestureRecognizer){
-        let touchPoint = gestureRecognizer.location(in: map)
+        touchPoint = gestureRecognizer.location(in: map)
         if(gestureRecognizer.state == UIGestureRecognizerState.ended){
-            let newCoordinates = map.convert(touchPoint, toCoordinateFrom: map)
-            //let pin = MKPointAnnotation()
-            //pin.coordinate = newCoordinates
-            let pin = MapMarker(title: "New Pin", subtitle: "Create a group!", coordinate: newCoordinates)
-            
-            print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
-            map.addAnnotation(pin)
-            
-            //random id
-            let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
-            let r = random.nextInt()
-            
-            //Add to firebase
-            let ref = FIRDatabase.database().reference(withPath: "pins")
-            ref.child(String(r)).setValue([
-                "description": "Create a group",
-                "id": 9,
-                "lat": newCoordinates.latitude,
-                "long": newCoordinates.longitude,
-                "name": "New Pin"
-                ])
+           groupName.isHidden = false
+            groupDescription.isHidden = false
+            groupButton.isHidden = false
         }
         
     }
@@ -144,15 +164,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func zoomOut(_ sender: Any) {
-        zoomLatMeters += 2000
-        zoomLongMeters += 2000
+        zoomLatMeters += 250
+        zoomLongMeters += 250
         zoom()
+        print(zoomLatMeters)
+        print(zoomLongMeters)
     }
     
     @IBAction func zoomIn(_ sender: Any) {
-        zoomLatMeters -= 2000
-        zoomLongMeters -= 2000
-        zoom()
+        if(zoomLatMeters > 250 && zoomLongMeters > 250){
+            zoomLatMeters -= 250
+            zoomLongMeters -= 250
+            zoom()
+        }
+        print(zoomLatMeters)
+        print(zoomLongMeters)
     }
     
     override func viewDidLoad() {
@@ -170,7 +196,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
         lpgr.minimumPressDuration = 0.5
         map.addGestureRecognizer(lpgr)
-        
+        groupName.isHidden = true
+        groupDescription.isHidden = true
+        groupButton.isHidden = true
 
     }
 
