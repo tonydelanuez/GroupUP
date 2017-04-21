@@ -9,12 +9,38 @@
 import Foundation
 import JSQMessagesViewController
 import FirebaseDatabase
+import FirebaseAuth
 
 class ChatViewController : JSQMessagesViewController {
     
-    var group: Group?
+    var group: Group!
     var groupEndpoint: FIRDatabaseReference?
     var messages: [JSQMessage] = []
+    var user: FIRUser!
+    private lazy var messageEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("messages")
+    
+    func detectMessages() {
+        let groupMessageEndpoint = messageEndpoint.child(self.group.id).queryLimited(toLast: 25)
+        
+        groupMessageEndpoint.observe(FIRDataEventType.childAdded, with : { snapshot -> Void in
+            guard let data = snapshot.value as? Dictionary<String, String> else {
+                print("Could not decode message data")
+                return
+            }
+            
+            guard let id = data["senderId"], let senderName = data["senderDisplayName"], let text = data["text"] else {
+                return
+            }
+
+            guard let message = JSQMessage(senderId: id, displayName: senderName, text: text) else {
+                return
+            }
+
+            self.messages.append(message)
+            
+            self.finishReceivingMessage()
+        })
+    }
     
     // CollectionView overrides
     
@@ -70,14 +96,8 @@ class ChatViewController : JSQMessagesViewController {
     override func viewDidLoad() {
         self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
-        
-        self.navigationItem.title = self.group?.name
-        let dummyMessage = JSQMessage(senderId: self.senderId, displayName: "Justin", text: "Study tomorrow?")
-        let other = JSQMessage(senderId: "4321", displayName: "Eric" , text: "Works for me")
-        let moreother = JSQMessage(senderId: "12345", displayName: "Tony", text: "I'll bring the textbook")
-        self.messages.append(dummyMessage!)
-        self.messages.append(other!)
-        self.messages.append(moreother!)
+        self.navigationItem.title = self.group.name
+        self.detectMessages()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

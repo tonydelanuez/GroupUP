@@ -62,7 +62,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = self.groups[indexPath.row]
+        let group = self.groups[indexPath.item]
         self.performSegue(withIdentifier: "presentChatViewController", sender: group)
     }
     
@@ -75,8 +75,9 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         
         if let vc = segue.destination as? ChatViewController {
             vc.group = group
-            vc.senderDisplayName = "Test"
-            vc.senderId = "1234"
+            vc.senderDisplayName = user.email!
+            vc.senderId = user.uid
+            vc.user = self.user
         }
     }
     
@@ -86,6 +87,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
                 print(error.localizedDescription)
             }
             else {
+                print(user!.uid)
                 self.user = user
                 self.detectGroups()
             }
@@ -93,9 +95,6 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
