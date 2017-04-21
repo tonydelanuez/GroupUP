@@ -25,36 +25,51 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         clearBoxes()
     }
     
-    
+    //This function available only after long press on the map. 
+    //Just allows for submission of new group based on the text fields that pop up. 
     @IBAction func createGroup(_ sender: UIButton) {
-       
         let newCoordinates = map.convert(touchPoint!, toCoordinateFrom: map)
         //let pin = MKPointAnnotation()
         //pin.coordinate = newCoordinates
         let theGroupName = groupName.text
         let theGroupDesc = groupDescription.text
         
-        let pin = MapMarker(title: theGroupName!, subtitle: theGroupDesc!, coordinate: newCoordinates)
-        
-        print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
-        map.addAnnotation(pin)
-        
-        //random id
-        let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
-        let r = random.nextInt()
         
         //Add to firebase
         let ref = FIRDatabase.database().reference(withPath: "pins")
-        ref.child(String(r)).setValue([
-            "description": theGroupDesc!,
-            "id": 9,
-            "lat": newCoordinates.latitude,
-            "long": newCoordinates.longitude,
-            "name": theGroupName!
-            ])
+        //Check for both entries
         
-        hideAll()
-        clearBoxes()
+            if(theGroupName != "" && theGroupDesc != ""){
+                let pin = MapMarker(title: theGroupName!, subtitle: theGroupDesc!, coordinate: newCoordinates)
+                
+                print ("Dropped pin - Lat: \(newCoordinates.latitude) Long   \(newCoordinates.longitude)")
+                map.addAnnotation(pin)
+                
+                //random id generated for pin
+                let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
+                let r = random.nextInt()
+
+                ref.child(String(r)).setValue([
+                    "description": theGroupDesc!,
+                    "id": 9,
+                    "lat": newCoordinates.latitude,
+                    "long": newCoordinates.longitude,
+                    "name": theGroupName!
+                    ])
+                //Alert upon success
+                let alertController = UIAlertController(title: "Group successfully created!", message:
+                    "Name of group: \(theGroupName!) \n Description: \(theGroupDesc!)", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+                hideAll()
+                clearBoxes()
+            } else {
+                //Not all text boxes filled, do not place marker and alert failure.
+                let alertController = UIAlertController(title: "Submission Unsuccessful", message:
+                    "Please complete all fields.", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     @IBOutlet weak var groupName: UITextField!
@@ -92,6 +107,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         groupDescription.text = ""
     }
     
+    
+    //Read from firebase graps all the points in the "pins" section of the Firebase database. 
+    //Each pin is added onto the map with its given properties: ID, Description, Lat, and Long.
     func readFromFirebase(){
         let ref = FIRDatabase.database().reference(withPath: "pins")
         ref.observe(.childAdded, with: { snapshot in
@@ -176,7 +194,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     */
-    
+
+    //If the user clicks the "Me" button they're sent to their GPS location. Unfortunately, the simulator uses Cupertino which isn't very nice.
     @IBAction func userLocation(_ sender: Any) {
         let userLocation = map.userLocation
         let region = MKCoordinateRegionMakeWithDistance((userLocation.location?.coordinate)!, zoomLatMeters, zoomLongMeters)
@@ -191,6 +210,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         map.setRegion(MKCoordinateRegionMakeWithDistance(location,zoomLatMeters, zoomLongMeters), animated: true)
     }
     
+    //ZoomIn/ZoomOut are for simulator testing
     @IBAction func zoomOut(_ sender: Any) {
         zoomLatMeters += 250
         zoomLongMeters += 250
@@ -212,7 +232,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         readFromFirebase()
-        
+        //set the initial location on MapView to WashU
         let location = CLLocationCoordinate2DMake(38.902, -90.902)
         map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
         // Do any additional setup after loading the view.
@@ -220,11 +240,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         map.delegate = self
         //parseJSON()
         
-        
+        //Configure long press gesture
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
         lpgr.minimumPressDuration = 0.5
         map.addGestureRecognizer(lpgr)
+        //Hide all UI Elements that have to deal with adding a new group
         hideAll()
+        //Stylize buttons
         groupButton.layer.cornerRadius = 10
         cancelButton.layer.cornerRadius = 10
     }
