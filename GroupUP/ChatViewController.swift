@@ -44,6 +44,17 @@ class ChatViewController : JSQMessagesViewController {
     
     // CollectionView overrides
     
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        let groupMessageEndpoint = messageEndpoint.child(self.group.id).childByAutoId()
+        var message : [String:String] = [:]
+        message["text"] = text
+        message["senderId"] = self.user.uid
+        message["senderDisplayName"] = self.senderDisplayName
+        groupMessageEndpoint.setValue(message)
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        self.finishSendingMessage()
+    }
+    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return self.messages[indexPath.item]
     }
@@ -85,11 +96,17 @@ class ChatViewController : JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        if indexPath.item > 0 && self.messages[indexPath.item].senderId == self.messages[indexPath.item-1].senderId {
+            return nil
+        }
         let string = self.messages[indexPath.item].senderDisplayName
         return NSAttributedString(string: string!)
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        if indexPath.item > 0 && self.messages[indexPath.item].senderId == self.messages[indexPath.item-1].senderId {
+            return 0
+        }
         return 15
     }
     
