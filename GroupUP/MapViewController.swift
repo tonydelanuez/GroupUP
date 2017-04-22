@@ -10,13 +10,16 @@ import UIKit
 import MapKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 import GameplayKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-
+    var user:FIRUser!
     @IBOutlet weak var groupButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    
+    @IBOutlet weak var instrLabel: UILabel!
+    private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
+
     
     var touchPoint: CGPoint?
     
@@ -61,6 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     "Name of group: \(theGroupName!) \n Description: \(theGroupDesc!)", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
+                self.groupsRef.child(String(r)).setValue([self.user.uid: true])
                 hideAll()
                 clearBoxes()
             } else {
@@ -249,6 +253,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //Stylize buttons
         groupButton.layer.cornerRadius = 10
         cancelButton.layer.cornerRadius = 10
+        auth()
+        fadeLabel(view: self.view, delay: 0.5)
+    }
+    
+    func fadeLabel(view: UIView, delay: TimeInterval){
+        
+        let durationLast = 10.5
+        let durationFade = 5.0
+        UIView.animate(withDuration: durationLast, animations:{() -> Void in
+            self.instrLabel.alpha = 1
+        }) {(Bool) -> Void in
+            
+                UIView.animate(withDuration: durationFade, delay: delay, animations: {() ->
+                    Void in self.instrLabel.alpha = 0
+            }, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -256,6 +276,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func auth(){
+        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            else {
+                print(user!.uid)
+                self.user = user
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation

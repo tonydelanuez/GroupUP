@@ -100,14 +100,22 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long Press to Create a Group!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiL-tD-xg7">
+                                <rect key="frame" x="72.5" y="43.5" width="230" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="eiL-tD-xg7" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="B0b-bl-oda"/>
                             <constraint firstItem="Reg-H6-RZP" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="Bdz-la-mFh"/>
                             <constraint firstItem="Reg-H6-RZP" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="DC2-H1-eMv"/>
                             <constraint firstAttribute="trailing" secondItem="Reg-H6-RZP" secondAttribute="trailing" id="Ens-fN-rd1"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Reg-H6-RZP" secondAttribute="bottom" id="Jy2-ms-9Ib"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="NeX-xn-Omj" secondAttribute="bottom" constant="5" id="Pnf-uC-OQV"/>
+                            <constraint firstItem="gEz-6C-ZV0" firstAttribute="top" secondItem="eiL-tD-xg7" secondAttribute="bottom" constant="96" id="QVm-Bh-D3w"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="gEz-6C-ZV0" secondAttribute="bottom" constant="338" id="Xzm-WO-MRF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NeX-xn-Omj" secondAttribute="trailing" constant="5" id="hxm-Sx-e5j"/>
                             <constraint firstItem="gEz-6C-ZV0" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="jBv-8w-g2j"/>
@@ -121,6 +129,7 @@
                         <outlet property="groupButton" destination="Lt6-1L-DYr" id="aHV-AR-erP"/>
                         <outlet property="groupDescription" destination="a0U-mW-ksY" id="0ZF-bE-KZi"/>
                         <outlet property="groupName" destination="cpF-rQ-oZn" id="eID-vG-uQQ"/>
+                        <outlet property="instrLabel" destination="eiL-tD-xg7" id="Lbx-yl-R9t"/>
                         <outlet property="map" destination="Reg-H6-RZP" id="vSU-2W-5HP"/>
                     </connections>
                 </viewController>
@@ -200,7 +209,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="weU-6X-ZLS">
-                                <rect key="frame" x="0.0" y="72" width="375" height="546"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -215,7 +224,7 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Sst-Vk-KbK">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <scopeButtonTitles>
@@ -230,14 +239,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="wdK-Qn-Lka"/>
+                    <navigationItem key="navigationItem" id="m4b-w2-laL"/>
                     <connections>
                         <outlet property="searchbar" destination="Sst-Vk-KbK" id="dmc-29-Q4w"/>
                         <outlet property="tableView" destination="weU-6X-ZLS" id="dLi-8O-dQE"/>
+                        <segue destination="p5J-ae-TxC" kind="show" identifier="presentChatViewController" id="3WJ-JM-JsG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YzF-6w-AMZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="1054.7226386806597"/>
+            <point key="canvasLocation" x="2765.5999999999999" y="1184.257871064468"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="gJc-HT-zxP">
@@ -435,7 +446,7 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="WWy-7Z-mVf" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="lz1-B2-PPP" kind="relationship" relationship="viewControllers" id="09n-LL-uvi"/>
+                        <segue destination="vqH-XN-jzG" kind="relationship" relationship="viewControllers" id="O8x-bh-gLd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -531,6 +542,25 @@
             </objects>
             <point key="canvasLocation" x="-3103" y="358"/>
         </scene>
+        <!--Search-->
+        <scene sceneID="7Qj-sV-vfV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vqH-XN-jzG" userLabel="Search" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="3Nh-mm-bE9"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2xv-tp-1P3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lz1-B2-PPP" kind="relationship" relationship="rootViewController" id="WL1-mW-6um"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nY1-XY-SRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1828" y="1184"/>
+        </scene>
     </scenes>
     <resources>
         <image name="chat" width="30" height="30"/>
@@ -538,4 +568,7 @@
         <image name="maps" width="30" height="30"/>
         <image name="search" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="3WJ-JM-JsG"/>
+    </inferredMetricsTieBreakers>
 </document>

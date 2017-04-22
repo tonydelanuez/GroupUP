@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    var user: FIRUser!
     var groups: [Group] = []
     var filteredGroups: [Group] = []
     var active = false
     private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
-    
+    private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
     
@@ -25,13 +28,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.dataSource = self
         self.searchbar.delegate = self
         self.detectGroups()
+        auth()
     }
     
     // Attach a listener to update the view
     private func detectGroups() {
-        
-        var groupDictionary : Dictionary<String, String> = [:]
-        
         groupEndpoint.observe(FIRDataEventType.childAdded, with: { snap in
             if let groupInfo = snap.value as? [String:Any] {
                 if let id = groupInfo["id"] as? Int, let name = groupInfo["name"] as? String {
@@ -62,6 +63,36 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let group = self.groups[indexPath.item]
+        let name = group.name
+        let selectAlert = UIAlertController(title: "\(name)", message: "Would you like to enter this group?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        //If they accept
+        selectAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction!) in
+            self.groupsRef.child(group.id).setValue([self.user.uid: true])
+            self.performSegue(withIdentifier: "presentChatViewController", sender: group)
+            
+        }))
+        selectAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {(action: UIAlertAction!) in
+            print("Chose not to join group")
+        }))
+        
+        present(selectAlert, animated: true, completion:nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let group = sender as? Group else {
+            return
+        }
+        
+        if let vc = segue.destination as? ChatViewController {
+            vc.group = group
+            vc.senderDisplayName = user.email!
+            vc.senderId = user.uid
+            vc.user = self.user
+        }
+    }
     // SearchBar overrides
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -89,6 +120,16 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.reloadData()
     }
     
-    
+    func auth(){
+        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            else {
+                print(user!.uid)
+                self.user = user
+            }
+        }
+    }
     
 }
