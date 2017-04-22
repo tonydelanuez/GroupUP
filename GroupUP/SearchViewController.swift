@@ -15,11 +15,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var groups: [Group] = []
     var filteredGroups: [Group] = []
     var active = false
-    private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
+    private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
-  
+    
     override func viewDidLoad() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -29,22 +29,20 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Attach a listener to update the view
     private func detectGroups() {
-        // Listen for the children of "groups" to change
-        groupEndpoint.observe(FIRDataEventType.childAdded, with: { snapshot in
-            // Get the ID of the group
-            let id = snapshot.key
-            
-            // Conveniently store data
-            guard let name = snapshot.value as? String else {
-                return
-            }
-            
-            let group = Group(id: id, name: name)
-            self.groups.append(group)
-            if !self.active {
-                self.tableView.reloadData()
+        
+        var groupDictionary : Dictionary<String, String> = [:]
+        
+        groupEndpoint.observe(FIRDataEventType.childAdded, with: { snap in
+            if let groupInfo = snap.value as? [String:Any] {
+                if let id = groupInfo["id"] as? Int, let name = groupInfo["name"] as? String {
+                    let stringId = String(id)
+                    let group = Group(id: stringId, name: name)
+                    self.groups.append(group)
+                    self.tableView.reloadData()
+                }
             }
         })
+        
     }
     
     // TableView overrides
@@ -90,7 +88,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.active = self.filteredGroups.count > 0 || self.searchbar.text != ""
         self.tableView.reloadData()
     }
-
+    
     
     
 }

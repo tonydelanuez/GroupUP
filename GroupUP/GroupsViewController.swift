@@ -16,7 +16,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var user: FIRUser!
-    private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
+    private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
     private lazy var membersEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
     
     
@@ -24,8 +24,19 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     private func detectGroups() {
         
         var groupDictionary : Dictionary<String, String> = [:]
-        self.groupEndpoint.observe(FIRDataEventType.value,  with: { snap in
-            groupDictionary = snap.value as! Dictionary<String, String>
+        self.groupEndpoint.observe(FIRDataEventType.childAdded,  with: { snap in
+            if let groupInfo = snap.value as? [String:Any] {
+                if let id = groupInfo["id"] as? Int, let name = groupInfo["name"] as? String {
+                    let stringId = String(id)
+                    groupDictionary[stringId] = name
+                }
+                else {
+                    print("or here")
+                }
+            }
+            else {
+                print("here")
+            }
         })
         
         // Listen for the children of "groups" to change

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GroupUP/GroupsViewController.swift"
+            timestampString = "514587443.375114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "GroupsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GroupUP.GroupsViewController.tableView.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITableView&gt;"
+                  moduleName = "GroupUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ericgoodman/Dropbox/College/438/GroupUP/GroupUP/GroupsViewController.swift"
+                  timestampString = "514587443.474928"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GroupUP.GroupsViewController.tableView.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITableView&gt;"
+                  moduleName = "GroupUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ericgoodman/Dropbox/College/438/GroupUP/GroupUP/GroupsViewController.swift"
+                  timestampString = "514587443.478791"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GroupUP.GroupsViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; GroupUP.GroupsViewController"
+                  moduleName = "GroupUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ericgoodman/Dropbox/College/438/GroupUP/GroupUP/GroupsViewController.swift"
+                  timestampString = "514587443.480491"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "162">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GroupUP.GroupsViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;GroupUP.GroupsViewController&gt;"
+                  moduleName = "GroupUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ericgoodman/Dropbox/College/438/GroupUP/GroupUP/GroupsViewController.swift"
+                  timestampString = "514587443.481959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "91">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
