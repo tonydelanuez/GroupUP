@@ -46,12 +46,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 map.addAnnotation(pin)
                 
                 //random id generated for pin
-                let random = GKRandomDistribution(lowestValue: 0 , highestValue: 100)
+                let random = GKRandomDistribution(lowestValue: 0 , highestValue: 10000)
                 let r = random.nextInt()
 
                 ref.child(String(r)).setValue([
                     "description": theGroupDesc!,
-                    "id": 9,
+                    "id": r,
                     "lat": newCoordinates.latitude,
                     "long": newCoordinates.longitude,
                     "name": theGroupName!
