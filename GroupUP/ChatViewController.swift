@@ -19,6 +19,26 @@ class ChatViewController : JSQMessagesViewController {
     var user: FIRUser!
     private lazy var messageEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("messages")
     
+    //Grab all groups
+    private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
+    
+    lazy var outgoingBubbleImageView : JSQMessagesBubbleImage = self.setupOutgoingBubble()
+    lazy var incomingBubbleImageView : JSQMessagesBubbleImage = self.setupIncomingBubble()
+    
+    //Bubble setup
+    //Outgoing
+    private func setupOutgoingBubble() -> JSQMessagesBubbleImage {
+        let bubbleImageFactory = JSQMessagesBubbleImageFactory()
+        return bubbleImageFactory!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+    }
+    //Incoming
+    private func setupIncomingBubble() -> JSQMessagesBubbleImage {
+        let bubbleImageFactory = JSQMessagesBubbleImageFactory()
+        return bubbleImageFactory!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
+    }
+    
+    //View messages, append to the chat. 
+    
     func detectMessages() {
         let groupMessageEndpoint = messageEndpoint.child(self.group.id).queryLimited(toLast: 25)
         
@@ -72,12 +92,12 @@ class ChatViewController : JSQMessagesViewController {
         
         // If I sent the messgae, display outgoing bubble
         if self.messages[indexPath.item].senderId == self.senderId {
-            return JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+            return outgoingBubbleImageView
         }
             
             // Message is incoming
         else {
-            return JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
+            return incomingBubbleImageView
         }
     }
     
@@ -91,6 +111,7 @@ class ChatViewController : JSQMessagesViewController {
         return cell
     }
     
+    //Removing Avatar Data
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
@@ -115,8 +136,19 @@ class ChatViewController : JSQMessagesViewController {
         super.viewDidLoad()
         self.navigationItem.title = self.group.name
         self.detectMessages()
+        
+        //Remove avatars
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        
     }
 
+    private func addMessage(withId id: String, name: String, text: String) {
+        if let message = JSQMessage(senderId: id, displayName: name, text: text) {
+            messages.append(message)
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
     }

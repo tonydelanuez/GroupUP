@@ -115,7 +115,7 @@
                             <constraint firstItem="cix-x1-hQY" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="10" id="jwj-y0-iBr"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="maps" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="cancelButton" destination="4EX-fS-RuE" id="Sb4-5g-mqJ"/>
                         <outlet property="groupButton" destination="Lt6-1L-DYr" id="aHV-AR-erP"/>
@@ -229,7 +229,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="second" id="wdK-Qn-Lka"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="wdK-Qn-Lka"/>
                     <connections>
                         <outlet property="searchbar" destination="Sst-Vk-KbK" id="dmc-29-Q4w"/>
                         <outlet property="tableView" destination="weU-6X-ZLS" id="dLi-8O-dQE"/>
@@ -446,7 +446,7 @@
         <scene sceneID="gWf-SG-7WP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WWy-7Z-mVf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Your Groups" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Your Groups" image="chat" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L7o-Dh-hO6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -533,8 +533,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="chat" width="30" height="30"/>
         <image name="login_screen" width="1080" height="1920"/>
-        <image name="second" width="30" height="30"/>
+        <image name="maps" width="30" height="30"/>
+        <image name="search" width="30" height="30"/>
     </resources>
 </document>
