@@ -13,6 +13,7 @@ import FirebaseAuth
 class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passField: UITextField!
+    var sentUser: FIRUser!
     
     @IBAction func loginPressed(_ sender: UIButton) {
         if self.usernameField.text == "" || self.passField.text == "" {
@@ -32,11 +33,11 @@ class LoginViewController: UIViewController {
                     
                     
                     print("LoginSuccess")
+                    self.sentUser = user
+                    print(self.sentUser.uid)
                     
                     //Go to the Map if login
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
-                    self.present(vc!, animated: true, completion: nil)
-                    
+                    self.performSegue(withIdentifier: "presentMapController", sender: self)
                 } else {
                     
                     
@@ -50,6 +51,12 @@ class LoginViewController: UIViewController {
             }
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController {
+            vc.user = sentUser
+        }
     }
 
     override func viewDidLoad() {

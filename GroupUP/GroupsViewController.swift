@@ -116,16 +116,17 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidLoad() {
-        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            else {
-                print(user!.uid)
-                self.user = user
-                self.detectGroups()
-            }
-        }
+//        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//            else {
+//                print(user!.uid)
+//                self.user = user
+//                self.detectGroups()
+//            }
+//        }
+        self.detectGroups()
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self

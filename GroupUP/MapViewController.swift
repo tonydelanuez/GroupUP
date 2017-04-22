@@ -253,8 +253,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //Stylize buttons
         groupButton.layer.cornerRadius = 10
         cancelButton.layer.cornerRadius = 10
-        auth()
         fadeLabel(view: self.view, delay: 0.5)
+        
+        
+        //Set user for everything
+        for viewC in (self.tabBarController?.customizableViewControllers)!{
+            if let c = viewC as? GroupsViewController{
+                c.user = self.user
+            }
+        }
     }
     
     func fadeLabel(view: UIView, delay: TimeInterval){
@@ -276,17 +283,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func auth(){
-        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            else {
-                print(user!.uid)
-                self.user = user
-            }
-        }
-    }
+//    func auth(){
+//        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//            else {
+//                print(user!.uid)
+//                self.user = user
+//            }
+//        }
+//    }
 
     /*
     // MARK: - Navigation
