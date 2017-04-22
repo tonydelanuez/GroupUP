@@ -18,7 +18,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     var user: FIRUser!
     private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
     private lazy var membersEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
-    
+    private lazy var messagesEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("messages")
     
     // Attach a listener to update the view
     private func detectGroups() {
@@ -45,9 +45,8 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
             let id = snapshot.key
             
             let memberDictionary = snapshot.value as! Dictionary<String, Bool>
-            for (name, _) in memberDictionary {
-                
-                if name == self.user.uid {
+            for (name, isValidMember) in memberDictionary {
+                if name == self.user.uid && isValidMember {
                     if let groupName = groupDictionary[id] {
                         let group = Group(id: id, name: groupName)
                         self.groups.append(group)
@@ -75,6 +74,30 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let group = self.groups[indexPath.item]
         self.performSegue(withIdentifier: "presentChatViewController", sender: group)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            
+            // Remove from members
+            let id = self.groups[indexPath.item].id
+            self.membersEndpoint.child(id).child(self.user.uid).removeValue()
+            
+            self.groups.remove(at: indexPath.item)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            
+            // Ensure that we were not the last person to leave the group
+            membersEndpoint.child(id).observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
+                if (snapshot.value as? String) == nil {
+                    self.messagesEndpoint.child(id).removeValue()
+                    self.groupEndpoint.child(id).removeValue()
+                }
+            })
+        }
     }
     
     // Additional overrides
