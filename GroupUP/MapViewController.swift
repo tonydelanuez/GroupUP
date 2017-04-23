@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var instrLabel: UILabel!
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
+    
 
     @IBOutlet weak var pinGroupDescription: UILabel!
     @IBOutlet weak var joinGroup: UIButton!
@@ -67,7 +68,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     "Name of group: \(theGroupName!) \n Description: \(theGroupDesc!)", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
-                self.groupsRef.child(String(r)).setValue([self.user.uid: true])
+                
+                 //////---------------------------------------------
+                ////ISSUE HERE WITH ADDING TO GROUP BECAUSE WE DONT HAVE THE USER
+                //self.groupsRef.child(String(r)).setValue([self.user.uid: true])
+                //////---------------------------------------------
+                
                 hideAll()
                 clearBoxes()
             } else {

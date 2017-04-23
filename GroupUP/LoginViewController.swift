@@ -34,8 +34,6 @@ class LoginViewController: UIViewController {
                     
                     print("LoginSuccess")
                     self.sentUser = user
-                    print(self.sentUser.uid)
-                    
                     //Go to the Map if login
                     self.performSegue(withIdentifier: "presentMapController", sender: self)
                 } else {
