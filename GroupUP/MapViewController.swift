@@ -20,6 +20,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var instrLabel: UILabel!
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
 
+    @IBOutlet weak var pinGroupDescription: UILabel!
+    @IBOutlet weak var joinGroup: UIButton!
+    @IBOutlet weak var cancelGroupJoin: UIButton!
     
     var touchPoint: CGPoint?
     
@@ -95,6 +98,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         groupDescription.isHidden = true
         groupButton.isHidden = true
         cancelButton.isHidden = true
+        pinGroupDescription.isHidden = true
+        joinGroup.isHidden = true
+        cancelGroupJoin.isHidden = true
     }
     
     //Show all the text boxes and buttons
@@ -103,6 +109,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         groupDescription.isHidden = false
         groupButton.isHidden = false
         cancelButton.isHidden = false
+    }
+    
+    func showPinInfo(){
+        pinGroupDescription.isHidden = false
+        joinGroup.isHidden = false
+        cancelGroupJoin.isHidden = false
     }
     
     //Clear the text boxes
@@ -154,6 +166,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    //check to see if marker was clicked
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation {
+            pinGroupDescription.text = annotation.subtitle!!
+            showPinInfo()
+            print("Title: \(annotation.title!!)");
+            
+            //performSegue(withIdentifier: "presentChatViewController", sender: nil)
+        }
+    }
     /*
      /* 
         Dont need at the moment

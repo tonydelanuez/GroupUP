@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5Ya-4n-yBE">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5Ya-4n-yBE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Reg-H6-RZP">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NeX-xn-Omj">
                                 <rect key="frame" x="294" y="571" width="60" height="42"/>
@@ -53,7 +53,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cix-x1-hQY">
-                                <rect key="frame" x="340" y="30" width="30" height="34"/>
+                                <rect key="frame" x="340" y="74" width="30" height="34"/>
                                 <state key="normal" title="Me">
                                     <color key="titleColor" red="0.062521186219999997" green="0.74117647060000003" blue="0.2225149501" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -100,8 +100,48 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8z8-y5-OIn">
+                                <rect key="frame" x="84" y="273" width="225" height="101"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUM-RP-vjT">
+                                        <rect key="frame" x="0.0" y="0.0" width="225" height="40.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAa-co-J4l">
+                                        <rect key="frame" x="0.0" y="40.5" width="225" height="29"/>
+                                        <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.76113013699999998" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="Bw4-RO-8bu"/>
+                                        </constraints>
+                                        <state key="normal" title="Join Group!">
+                                            <color key="titleColor" red="0.0" green="0.2470588235" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="WWy-7Z-mVf" kind="show" id="IZ1-oZ-QaE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Ct-Wha">
+                                        <rect key="frame" x="0.0" y="69.5" width="225" height="31.5"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.25882352939999997" blue="0.058823529409999999" alpha="0.74842144690000001" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31.5" id="Qr9-IB-tl5"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.2470588235" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelGroup:" destination="9pv-A4-QxB" eventType="touchUpInside" id="tKu-zb-qE1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wHL-Ct-Wha" firstAttribute="top" secondItem="RUM-RP-vjT" secondAttribute="bottom" constant="29" id="QHG-qL-HIh"/>
+                                </constraints>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long Press to Create a Group!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiL-tD-xg7">
-                                <rect key="frame" x="72.5" y="43.5" width="230" height="20.5"/>
+                                <rect key="frame" x="73" y="43.5" width="230" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -112,25 +152,33 @@
                             <constraint firstItem="eiL-tD-xg7" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="B0b-bl-oda"/>
                             <constraint firstItem="Reg-H6-RZP" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="Bdz-la-mFh"/>
                             <constraint firstItem="Reg-H6-RZP" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="DC2-H1-eMv"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="8z8-y5-OIn" secondAttribute="bottom" constant="244" id="EQI-6u-szh"/>
+                            <constraint firstItem="8z8-y5-OIn" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="273" id="ESZ-gg-Tib"/>
                             <constraint firstAttribute="trailing" secondItem="Reg-H6-RZP" secondAttribute="trailing" id="Ens-fN-rd1"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Reg-H6-RZP" secondAttribute="bottom" id="Jy2-ms-9Ib"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="NeX-xn-Omj" secondAttribute="bottom" constant="5" id="Pnf-uC-OQV"/>
                             <constraint firstItem="gEz-6C-ZV0" firstAttribute="top" secondItem="eiL-tD-xg7" secondAttribute="bottom" constant="96" id="QVm-Bh-D3w"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8z8-y5-OIn" secondAttribute="trailing" constant="50" id="S7p-Gr-aW6"/>
+                            <constraint firstItem="8z8-y5-OIn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="68" id="U9i-CH-s4r"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="gEz-6C-ZV0" secondAttribute="bottom" constant="338" id="Xzm-WO-MRF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NeX-xn-Omj" secondAttribute="trailing" constant="5" id="hxm-Sx-e5j"/>
                             <constraint firstItem="gEz-6C-ZV0" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="jBv-8w-g2j"/>
                             <constraint firstAttribute="trailing" secondItem="cix-x1-hQY" secondAttribute="trailing" constant="5" id="jZC-fU-4ej"/>
                             <constraint firstItem="cix-x1-hQY" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="10" id="jwj-y0-iBr"/>
+                            <constraint firstItem="8z8-y5-OIn" firstAttribute="leading" secondItem="gEz-6C-ZV0" secondAttribute="leading" id="wkT-eq-qkl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="maps" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="cancelButton" destination="4EX-fS-RuE" id="Sb4-5g-mqJ"/>
+                        <outlet property="cancelGroupJoin" destination="wHL-Ct-Wha" id="avv-85-VVo"/>
                         <outlet property="groupButton" destination="Lt6-1L-DYr" id="aHV-AR-erP"/>
-                        <outlet property="groupDescription" destination="a0U-mW-ksY" id="0ZF-bE-KZi"/>
+                        <outlet property="groupDescription" destination="a0U-mW-ksY" id="Hxp-SN-Red"/>
                         <outlet property="groupName" destination="cpF-rQ-oZn" id="eID-vG-uQQ"/>
                         <outlet property="instrLabel" destination="eiL-tD-xg7" id="Lbx-yl-R9t"/>
+                        <outlet property="joinGroup" destination="oAa-co-J4l" id="CCM-Nz-IsT"/>
                         <outlet property="map" destination="Reg-H6-RZP" id="vSU-2W-5HP"/>
+                        <outlet property="pinGroupDescription" destination="RUM-RP-vjT" id="Ffk-6m-yRw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -158,7 +206,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ayE-CD-H5K" id="2Iw-Z4-1oL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -217,7 +265,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K9j-v6-jmV" id="TsF-b1-JUi">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -529,7 +577,6 @@
         <!--Navigation Controller-->
         <scene sceneID="zpm-qh-lE9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fB8-fw-nPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Ya-4n-yBE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2nU-rb-EWF">
@@ -541,6 +588,7 @@
                         <segue destination="0S6-Oc-O2S" kind="relationship" relationship="rootViewController" id="uPH-Ak-gWx"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fB8-fw-nPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3103" y="358"/>
         </scene>
@@ -571,6 +619,7 @@
         <image name="search" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="IZ1-oZ-QaE"/>
         <segue reference="3WJ-JM-JsG"/>
     </inferredMetricsTieBreakers>
 </document>
