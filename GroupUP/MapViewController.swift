@@ -21,6 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
     
 
+    @IBOutlet weak var pinInfoStack: UIStackView!
     @IBOutlet weak var pinGroupDescription: UILabel!
     @IBOutlet weak var joinGroup: UIButton!
     @IBOutlet weak var cancelGroupJoin: UIButton!
@@ -104,9 +105,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         groupDescription.isHidden = true
         groupButton.isHidden = true
         cancelButton.isHidden = true
-        pinGroupDescription.isHidden = true
-        joinGroup.isHidden = true
-        cancelGroupJoin.isHidden = true
+        pinInfoStack.isHidden = true
     }
     
     //Show all the text boxes and buttons
@@ -118,9 +117,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func showPinInfo(){
-        pinGroupDescription.isHidden = false
-        joinGroup.isHidden = false
-        cancelGroupJoin.isHidden = false
+          pinInfoStack.isHidden = false
+
     }
     
     //Clear the text boxes
