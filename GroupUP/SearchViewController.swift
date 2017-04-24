@@ -27,12 +27,17 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.searchbar.delegate = self
+        groups.removeAll()
         self.detectGroups()
+        auth()
+    }
+    override func viewDidAppear(_ animated: Bool) {
         auth()
     }
     
     // Attach a listener to update the view
     private func detectGroups() {
+        groups.removeAll()
         groupEndpoint.observe(FIRDataEventType.childAdded, with: { snap in
             if let groupInfo = snap.value as? [String:Any] {
                 if let id = groupInfo["id"] as? Int, let name = groupInfo["name"] as? String {
@@ -120,16 +125,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.reloadData()
     }
     
+    //Grab user details
     func auth(){
-        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            else {
-                print(user!.uid)
-                self.user = user
-            }
+        user = FIRAuth.auth()?.currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print(uid)
+            print(String(describing: email))
+            
         }
     }
-    
 }

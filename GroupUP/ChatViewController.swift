@@ -131,12 +131,24 @@ class ChatViewController : JSQMessagesViewController {
         return 15
     }
     
+    //Grab user details
+    func auth(){
+        user = FIRAuth.auth()?.currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print(uid)
+            print(String(describing: email))
+            
+        }
+    }
+    
     override func viewDidLoad() {
         self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
         self.navigationItem.title = self.group.name
         self.detectMessages()
-        
+        auth()
         //Remove avatars
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero

@@ -22,7 +22,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Attach a listener to update the view
     private func detectGroups() {
-        
+        groups.removeAll()
         var groupDictionary : Dictionary<String, String> = [:]
         self.groupEndpoint.observe(FIRDataEventType.childAdded,  with: { snap in
             if let groupInfo = snap.value as? [String:Any] {
@@ -115,23 +115,30 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    //Grab user details
+    func auth(){
+        user = FIRAuth.auth()?.currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print(uid)
+            print(String(describing: email))
+            
+        }
+    }
+    
     override func viewDidLoad() {
-//        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            }
-//            else {
-//                print(user!.uid)
-//                self.user = user
-//                self.detectGroups()
-//            }
-//        }
-        self.detectGroups()
+        auth()
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        auth()
+        groups.removeAll()
+        self.detectGroups()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -33,9 +33,11 @@ class LoginViewController: UIViewController {
                     
                     
                     print("LoginSuccess")
-                    self.sentUser = user
+                    
                     //Go to the Map if login
-                    self.performSegue(withIdentifier: "presentMapController", sender: self)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                    self.present(vc!, animated: true, completion: nil)
+                    
                 } else {
                     
                     
@@ -51,12 +53,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? MapViewController {
-            vc.user = sentUser
-        }
-    }
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 

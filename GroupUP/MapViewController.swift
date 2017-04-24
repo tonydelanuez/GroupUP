@@ -21,6 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
     
 
+    
+    @IBOutlet weak var groupDescHeader: UILabel!
     @IBOutlet weak var pinInfoStack: UIStackView!
     @IBOutlet weak var pinGroupDescription: UILabel!
     @IBOutlet weak var joinGroup: UIButton!
@@ -180,50 +182,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             //performSegue(withIdentifier: "presentChatViewController", sender: nil)
         }
     }
-    /*
-     /* 
-        Dont need at the moment
-     */
-    func readJSONObject(object: [String: AnyObject]) {
-        guard let markers = object["markers"] as? [[String: AnyObject]] else { return }
-        
-        for item in markers { //loop through markers and assign variables accordingly
-            guard let title = item["title"] as? String,
-                let subtitle = item["subtitle"] as? String,
-                let lat = item["latitude"] as? CLLocationDegrees,
-                let long = item["longitude"] as? CLLocationDegrees else {break}
-            
-            iLat = lat
-            iLong = long
-            
-            let location = CLLocationCoordinate2DMake(iLat, iLong)
-            map.setRegion(MKCoordinateRegionMakeWithDistance(location, zoomLatMeters, zoomLongMeters), animated: true)
-            
-            let pin = MapMarker(title: title, subtitle: subtitle, coordinate: location)
-            map.addAnnotation(pin)
-            print(pin.coordinate)
-        }
-    }
-    
-    
-    /*
-     parse the data into an object we can use
-     NSJSONSerialization does the parsing and serializing
-     */
-    func parseJSON() {
-        let url = Bundle.main.url(forResource: "DummyMapData", withExtension: "json") //reference JSON file
-        let data = NSData(contentsOf: url!)
-        
-        do {
-            let object = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments)
-            if let dictionary = object as? [String: AnyObject] {
-                readJSONObject(object: dictionary)
-            }
-        } catch {
-            // Handle Error
-        }
-    }
-    */
 
     //If the user clicks the "Me" button they're sent to their GPS location. Unfortunately, the simulator uses Cupertino which isn't very nice.
     @IBAction func userLocation(_ sender: Any) {
@@ -261,35 +219,35 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        readFromFirebase()
+
         //set the initial location on MapView to WashU
         let location = CLLocationCoordinate2DMake(38.902, -90.902)
         map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
         // Do any additional setup after loading the view.
         map.showsUserLocation = true
         map.delegate = self
-        //parseJSON()
-        
-        //Configure long press gesture
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
-        lpgr.minimumPressDuration = 0.5
-        map.addGestureRecognizer(lpgr)
-        //Hide all UI Elements that have to deal with adding a new group
         hideAll()
         //Stylize buttons
         groupButton.layer.cornerRadius = 10
         cancelButton.layer.cornerRadius = 10
-        fadeLabel(view: self.view, delay: 0.5)
         
-        
-        //Set user for everything
-        for viewC in (self.tabBarController?.customizableViewControllers)!{
-            if let c = viewC as? GroupsViewController{
-                c.user = self.user
-            }
-        }
+        joinGroup.layer.cornerRadius = 10
+        cancelGroupJoin.layer.cornerRadius = 10
+        pinGroupDescription.layer.cornerRadius = 10
+        groupDescHeader.layer.cornerRadius = 10
+        //Configure long press gesture
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.5
+        map.addGestureRecognizer(lpgr)
+
+
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        readFromFirebase()
+        //Hide all UI Elements that have to deal with adding a new group
+        fadeLabel(view: self.view, delay: 0.5)
+    }
     func fadeLabel(view: UIView, delay: TimeInterval){
         
         let durationLast = 10.5
@@ -309,17 +267,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-//    func auth(){
-//        FIRAuth.auth()!.signIn(withEmail: "ericgoodman@wustl.edu", password: "ericgoodman") { (user, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            }
-//            else {
-//                print(user!.uid)
-//                self.user = user
-//            }
-//        }
-//    }
 
     /*
     // MARK: - Navigation
