@@ -28,7 +28,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var joinGroup: UIButton!
     @IBOutlet weak var cancelGroupJoin: UIButton!
     
+    
     var touchPoint: CGPoint?
+    var clickedPinTitle: String!
     
     @IBAction func cancelGroup(_ sender: UIButton) {
         hideAll()
@@ -74,7 +76,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                  //////---------------------------------------------
                 ////ISSUE HERE WITH ADDING TO GROUP BECAUSE WE DONT HAVE THE USER
-                //self.groupsRef.child(String(r)).setValue([self.user.uid: true])
+                self.groupsRef.child(String(r)).setValue([self.user.uid: true])
                 //////---------------------------------------------
                 
                 hideAll()
@@ -96,6 +98,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var iLat: CLLocationDegrees = 0
     var iLong: CLLocationDegrees = 0
     var pinName: String!
+    var pinID: Int!
     var pinDescription: String!
     var random: Int!
 
@@ -177,9 +180,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if let annotation = view.annotation {
             pinGroupDescription.text = annotation.subtitle!!
             showPinInfo()
+            clickedPinTitle = annotation.title!!
             print("Title: \(annotation.title!!)");
-            
-            //performSegue(withIdentifier: "presentChatViewController", sender: nil)
         }
     }
 
@@ -221,11 +223,40 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func joinGroup(_ sender: Any) {
         //segue unwind
         self.performSegue(withIdentifier: "unwindToGroups", sender: self)
+        
+        let ref = FIRDatabase.database().reference(withPath: "pins")
+        ref.observe(.childAdded, with: { snapshot in
+            if let pin = snapshot.value as? [String:Any] {
+                if pin["name"]! as! String == self.clickedPinTitle  {
+                    self.pinID = pin["id"]! as! Int
+                    print(self.pinID)
+                    self.groupsRef.child(String(self.pinID)).setValue([self.user.uid: true])
+                }
+                else {
+                    print("Searching...", pin["name"]! as! String)
+                }
+            }
+        })
+       print(clickedPinTitle)
+//        print(user.uid)
+//        self.groupsRef.child(String(pinID)).setValue([self.user.uid: true])
+        
     }
-  
+
+    func auth(){
+        user = FIRAuth.auth()?.currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print(uid)
+            print(String(describing: email))
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        auth()
 
         //set the initial location on MapView to WashU
         let location = CLLocationCoordinate2DMake(38.902, -90.902)
