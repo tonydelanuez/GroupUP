@@ -19,7 +19,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var active = false
     private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
     
@@ -29,6 +29,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchbar.delegate = self
         groups.removeAll()
         self.detectGroups()
+        self.detectGroupDeletion()
         auth()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -37,7 +38,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Attach a listener to update the view
     private func detectGroups() {
-        groups.removeAll()
         groupEndpoint.observe(FIRDataEventType.childAdded, with: { snap in
             if let groupInfo = snap.value as? [String:Any] {
                 if let id = groupInfo["id"] as? Int, let name = groupInfo["name"] as? String {
@@ -49,6 +49,20 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         })
         
+    }
+    
+    private func detectGroupDeletion() {
+        groupEndpoint.observe(FIRDataEventType.childRemoved, with: { snap in
+            if let groupInfo = snap.value as? [String:Any] {
+                let id = String(describing:groupInfo["id"] as! Int)
+                 for (index,group) in self.groups.enumerated() {
+                    if group.id == id {
+                        self.groups.remove(at: index)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        })
     }
     
     // TableView overrides
