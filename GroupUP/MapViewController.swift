@@ -224,12 +224,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //segue unwind
         self.performSegue(withIdentifier: "unwindToGroups", sender: self)
         
+        //loop through firebase for group title and gets id
         let ref = FIRDatabase.database().reference(withPath: "pins")
         ref.observe(.childAdded, with: { snapshot in
             if let pin = snapshot.value as? [String:Any] {
                 if pin["name"]! as! String == self.clickedPinTitle  {
                     self.pinID = pin["id"]! as! Int
-                    print(self.pinID)
                     self.groupsRef.child(String(self.pinID)).setValue([self.user.uid: true])
                 }
                 else {
@@ -237,10 +237,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         })
-       print(clickedPinTitle)
-//        print(user.uid)
-//        self.groupsRef.child(String(pinID)).setValue([self.user.uid: true])
-        
+        hideAll()
     }
 
     func auth(){
