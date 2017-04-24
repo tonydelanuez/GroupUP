@@ -221,9 +221,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     @IBAction func joinGroup(_ sender: Any) {
-        //segue unwind
-        self.performSegue(withIdentifier: "unwindToGroups", sender: self)
-        
         //loop through firebase for group title and gets id
         let ref = FIRDatabase.database().reference(withPath: "pins")
         ref.observe(.childAdded, with: { snapshot in
@@ -238,6 +235,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         })
         hideAll()
+        //segue unwind
+        self.performSegue(withIdentifier: "unwindToGroups", sender: self)
     }
 
     func auth(){
