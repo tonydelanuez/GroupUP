@@ -156,7 +156,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.iLong = pin["long"]! as! CLLocationDegrees
                     
                     let location = CLLocationCoordinate2DMake(self.iLat, self.iLong)
-                    self.map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
+                    //self.map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
                     
                     let pin = MapMarker(title: self.pinName, subtitle: self.pinDescription, coordinate: location)
                     self.map.addAnnotation(pin)
@@ -219,7 +219,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         print(zoomLongMeters)
     }
     
-    
     @IBAction func joinGroup(_ sender: Any) {
         //loop through firebase for group title and gets id
         let ref = FIRDatabase.database().reference(withPath: "pins")
@@ -228,6 +227,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if pin["name"]! as! String == self.clickedPinTitle  {
                     self.pinID = pin["id"]! as! Int
                     self.groupsRef.child(String(self.pinID)).setValue([self.user.uid: true])
+                    print(self.clickedPinTitle, "= Match =", pin["name"]! as! String)
+
                 }
                 else {
                     print("Searching...", pin["name"]! as! String)
@@ -260,7 +261,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         auth()
 
         //set the initial location on MapView to WashU
-        let location = CLLocationCoordinate2DMake(38.902, -90.902)
+        let location = CLLocationCoordinate2DMake(38.6464966, -90.3021)
         map.setRegion(MKCoordinateRegionMakeWithDistance(location, self.zoomLatMeters, self.zoomLongMeters), animated: true)
         // Do any additional setup after loading the view.
         map.showsUserLocation = true
@@ -278,8 +279,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.action(gestureRecognizer:)))
         lpgr.minimumPressDuration = 0.5
         map.addGestureRecognizer(lpgr)
-
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
