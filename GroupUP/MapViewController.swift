@@ -21,7 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private lazy var groupsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
     
 
-    
+
     @IBOutlet weak var groupDescHeader: UILabel!
     @IBOutlet weak var pinInfoStack: UIStackView!
     @IBOutlet weak var pinGroupDescription: UILabel!
@@ -216,6 +216,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         print(zoomLatMeters)
         print(zoomLongMeters)
     }
+    
+    
+    @IBAction func joinGroup(_ sender: Any) {
+        //segue unwind
+        self.performSegue(withIdentifier: "unwindToGroups", sender: self)
+    }
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
