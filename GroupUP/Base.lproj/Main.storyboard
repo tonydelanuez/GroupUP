@@ -119,7 +119,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAa-co-J4l">
                                         <rect key="frame" x="0.0" y="40.5" width="225" height="29"/>
-                                        <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="Bw4-RO-8bu"/>
                                         </constraints>
@@ -127,7 +127,7 @@
                                             <color key="titleColor" red="0.0" green="0.2470588235" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="49e-Tb-3d3" kind="show" id="3bj-Ij-jyP"/>
+                                            <segue destination="WWy-7Z-mVf" kind="show" id="jag-xp-KgP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Ct-Wha">
@@ -630,5 +630,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3WJ-JM-JsG"/>
+        <segue reference="jag-xp-KgP"/>
     </inferredMetricsTieBreakers>
 </document>
