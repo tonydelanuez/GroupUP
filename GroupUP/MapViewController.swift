@@ -235,8 +235,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         })
         hideAll()
+        
+        let alertController = UIAlertController(title: clickedPinTitle, message: "Group joined!", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
         //segue unwind
-        self.performSegue(withIdentifier: "unwindToGroups", sender: self)
+//        self.performSegue(withIdentifier: "unwindToGroups", sender: self)
     }
 
     func auth(){
