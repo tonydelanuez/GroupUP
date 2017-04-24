@@ -15,6 +15,8 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     private var groups: [Group] = []
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func unwindToGroups(segue: UIStoryboardSegue) {}
+
     var user: FIRUser!
     private lazy var groupEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("pins")
     private lazy var membersEndpoint: FIRDatabaseReference = FIRDatabase.database().reference().child("members")
