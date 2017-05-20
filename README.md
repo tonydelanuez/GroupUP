@@ -7,7 +7,10 @@ Collaborators:
 * Justin Guyton 
 * Eric Goodman
 
-Tasks:
+Users can create groups, add pins to the map, and enter chatrooms with other users. 
 
-1. Basic View Controllers
-2. Integrate Chat
+Screenshots: 
+
+![Map](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Map")
+
+![Conversations](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Conversations")
