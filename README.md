@@ -11,6 +11,6 @@ Users can create groups, add pins to the map, and enter chatrooms with other use
 
 Screenshots: 
 
-![Map](https://github.com/tonydelanuez/GroupUP/raw/master/src/screenshots/1.jpg "Map")
+![Map](https://github.com/tonydelanuez/GroupUP/raw/master/screenshots/1.jpg "Map")
 
-![Conversations](https://github.com/tonydelanuez/GroupUP/raw/master/src/screenshots/2.jpg "Conversations")
+![Conversations](https://github.com/tonydelanuez/GroupUP/raw/master/screenshots/2.jpg "Conversations")
